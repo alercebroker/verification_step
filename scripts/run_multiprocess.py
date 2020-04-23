@@ -18,7 +18,7 @@ logging.basicConfig(level=level,
                     format='%(asctime)s %(levelname)s %(name)s.%(funcName)s: %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S',)
 
-#from late_classification import LateClassifier
+from verification import Verification
 from apf.consumers import GenericConsumer as Consumer
 n_process = STEP_CONFIG.get("N_PROCESS",1)
 
@@ -26,8 +26,8 @@ n_process = STEP_CONFIG.get("N_PROCESS",1)
 def create_and_run(idx, Consumer):
     CONSUMER_CONFIG["ID"] = idx
     consumer = Consumer(config=CONSUMER_CONFIG)
-    #step = LateClassifier(consumer,config=STEP_CONFIG,level=level)
-    #step.start()
+    step = Verification(consumer,config=STEP_CONFIG,level=level)
+    step.start()
 
 process_list = []
 for i in range(n_process):
