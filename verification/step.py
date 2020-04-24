@@ -22,7 +22,14 @@ class Verification(GenericStep):
     """
 
     def __init__(self, consumer=None, config=None, level=logging.INFO, **step_args):
-        pass
+
+        if self.config.get("PRODUCER_CONFIG", None):
+            self.producer = KafkaProducer(self.config["PRODUCER_CONFIG"])
+        else:
+            self.producer = None
+
+        self.session = get_session(config["DB_CONFIG"])
 
     def execute(self, message):
+        # Revisar en ElasticSearch
         pass
